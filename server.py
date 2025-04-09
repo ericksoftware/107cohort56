@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import json
+from config import db
 
 app = Flask(__name__)
 
@@ -46,15 +47,22 @@ def contact_api():
 products = []
 @app.get("/api/products")
 def get_products():
+    cursor = db.products.find()
+    for product in cursor:
+        products.append(fix_id(product))
     print("Products endpoint accessed")
-    return json.dumps(products)
+
+def fix_id(obj):
+    obj["_id"] = str(obj["_id"])
+    return obj
 
 @app.post("/api/products")
 def post_products():
     item = request.get_json()
     print("Item received:", item)
-    products.append(item)
-    return json.dumps(item)
+    # products.append(item)
+    db.products.insert_one(item)
+    return json.dumps(fix_id(item))
 
 @app.put("/api/products/<int:index>")
 def put_products(index):
