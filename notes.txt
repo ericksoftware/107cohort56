@@ -1,0 +1,17 @@
+1) Create venv
+WIN py -m venv venv
+MAC python3 -m venv venv
+
+THIS IS THE INSTRUCTION THAT YOU NEED TO RUN EVERYTIME THAT YOU WANT TO USE YOUR SERVER
+2) Activate the venv
+MAC source venv/bin/activate
+WIN venv\Scripts\activate
+
+ONLY ONCE, AFTER CREATING THE VENV
+3) install flask
+WIN py -m pip install flask pymongo "pymongo[srv]" certif
+MAC python3 -m pip install flask pymongo "pymongo[srv]" certif
+
+STEPS TO START THE SERVER
+4) Activate the venv
+run: py server.py
